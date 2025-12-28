@@ -13,6 +13,8 @@ class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
 
+class ABullet;
+
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 /**
@@ -31,6 +33,8 @@ class ASpace_SorcererCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
+
+
 protected:
 
 	/** Jump Input Action */
@@ -48,6 +52,14 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, Category ="Input")
 	class UInputAction* MouseLookAction;
+
+	/** Mouse Look Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* MouseShootAction;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	TSubclassOf<ABullet> ActorToSpawnClass; // Use TSubclassOf for flexibility with Blueprints
 	
 public:
 	ASpace_SorcererCharacter();
@@ -59,6 +71,9 @@ protected:
 
 	/** Called from Input Actions for looking input */
 	void LookInput(const FInputActionValue& Value);
+
+	/** Called from Input Actions for shooting input(Left click) */
+	void ShootInput(const FInputActionValue& value);
 
 	/** Handles aim inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")

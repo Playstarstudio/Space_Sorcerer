@@ -6,6 +6,6 @@
 ASpace_SorcererCameraManager::ASpace_SorcererCameraManager()
 {
 	// set the min/max pitch
-	ViewPitchMin = -70.0f;
-	ViewPitchMax = 80.0f;
+	ViewPitchMin = -20.0f;
+	ViewPitchMax = 20.0f;
 }
