@@ -9,6 +9,7 @@
 #include "InputActionValue.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Space_Sorcerer.h"
+#include "Bullet.h"
 
 ASpace_SorcererCharacter::ASpace_SorcererCharacter()
 {
@@ -59,6 +60,7 @@ void ASpace_SorcererCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		// Looking/Aiming
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASpace_SorcererCharacter::LookInput);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &ASpace_SorcererCharacter::LookInput);
+		EnhancedInputComponent->BindAction(MouseShootAction, ETriggerEvent::Triggered, this, &ASpace_SorcererCharacter::ShootInput);
 	}
 	else
 	{
@@ -66,6 +68,47 @@ void ASpace_SorcererCharacter::SetupPlayerInputComponent(UInputComponent* Player
 	}
 }
 
+
+void ASpace_SorcererCharacter::ShootInput(const FInputActionValue& value) 
+{
+	// Get the current world instance
+	UWorld* const World = GetWorld();
+	if (World)
+	{
+		// Define the spawn location and rotation (e.g., at the spawner's location)
+		FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 50 + GetActorUpVector() * 50; // Offset slightly
+		FRotator SpawnRotation = GetActorRotation();
+
+		// Optional: Define spawn parameters (owner, collision handling, etc.)
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		// Spawn the actor
+		// Use the TSubclassOf variable for flexibility
+		if (ActorToSpawnClass)
+		{
+			ABullet* SpawnedActor = World->SpawnActor<ABullet>(
+				ActorToSpawnClass,
+				SpawnLocation,
+				SpawnRotation,
+				SpawnParams
+			);
+
+			// You can now set properties on the spawned actor if needed
+			if (SpawnedActor)
+			{
+				TArray<UStaticMeshComponent*> set;
+				SpawnedActor->GetComponents<UStaticMeshComponent>(set);
+				for (UStaticMeshComponent* mesh : set) 
+				{
+					mesh->AddImpulse(GetActorForwardVector() * 1000 * mesh->GetMass());
+				}
+			}
+		}
+	}
+}
 
 void ASpace_SorcererCharacter::MoveInput(const FInputActionValue& Value)
 {
@@ -109,12 +152,8 @@ void ASpace_SorcererCharacter::DoMove(float Right, float Forward)
 
 void ASpace_SorcererCharacter::DoJumpStart()
 {
-	// pass Jump to the character
-	Jump();
 }
 
 void ASpace_SorcererCharacter::DoJumpEnd()
 {
-	// pass StopJumping to the character
-	StopJumping();
 }
