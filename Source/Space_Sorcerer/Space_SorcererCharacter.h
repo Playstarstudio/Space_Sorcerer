@@ -14,6 +14,9 @@ class UInputAction;
 struct FInputActionValue;
 
 class ABullet;
+class ACannon;
+class AModulePosition;
+
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -59,10 +62,22 @@ protected:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-	TSubclassOf<ABullet> ActorToSpawnClass; // Use TSubclassOf for flexibility with Blueprints
-	
+	TSubclassOf<ABullet> ActorToSpawnClass; 
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Golem Parts")
+	TSubclassOf<ACannon> cannonTemplate;
+
+	TArray<ACannon*> Cannons;
+
+
+	TArray<AModulePosition*> CannonTransforms;
+
 public:
 	ASpace_SorcererCharacter();
+
+
+	void AddCannon(TSubclassOf<ACannon> cannon, FString Position);
 
 protected:
 
@@ -86,6 +101,8 @@ protected:
 	/** Handles jump start inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpStart();
+
+	virtual void BeginPlay() override;
 
 	/** Handles jump end inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")

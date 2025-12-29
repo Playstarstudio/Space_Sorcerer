@@ -10,6 +10,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Space_Sorcerer.h"
 #include "Bullet.h"
+#include "Cannon.h"
+#include "ModulePosition.h"
 
 ASpace_SorcererCharacter::ASpace_SorcererCharacter()
 {
@@ -45,6 +47,40 @@ ASpace_SorcererCharacter::ASpace_SorcererCharacter()
 	GetCharacterMovement()->AirControl = 0.5f;
 }
 
+void ASpace_SorcererCharacter::AddCannon(TSubclassOf<ACannon> cannon, FString Position)
+{
+	for (AModulePosition* pos : CannonTransforms)
+	{
+		if(pos->ID.Equals(Position)) 
+		{
+			UWorld* const World = GetWorld();
+			if (World)
+			{
+				//Spawn in bullet
+				FVector SpawnLocation = pos->GetActorLocation();
+				FRotator SpawnRotation = pos->GetActorRotation();
+
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = pos;
+				SpawnParams.Instigator = GetInstigator();
+				SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+				FName ComponentName = MakeUniqueObjectName(this, UChildActorComponent::StaticClass(), *FString::Printf(TEXT("ChildActorComp")));
+				
+				UChildActorComponent* ChildActorComponent = NewObject<UChildActorComponent>(pos, TEXT("ComponentName"));
+				ChildActorComponent->RegisterComponent();
+				ChildActorComponent->AttachToComponent(pos->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+
+				ChildActorComponent->SetChildActorClass(cannon);
+
+				AActor* ChildActor = ChildActorComponent->GetChildActor();
+				ChildActor->SetActorTransform(pos->GetActorTransform());
+				ACannon* childCannon = static_cast<ACannon*>(ChildActor);
+				Cannons.Add(childCannon);
+			}
+		}
+	}
+}
+
 void ASpace_SorcererCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {	
 	// Set up action bindings
@@ -71,43 +107,14 @@ void ASpace_SorcererCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 void ASpace_SorcererCharacter::ShootInput(const FInputActionValue& value) 
 {
-	// Get the current world instance
-	UWorld* const World = GetWorld();
-	if (World)
+	int a = 1;
+	a = a + a;
+	for (ACannon* cannon : Cannons) 
 	{
-		// Define the spawn location and rotation (e.g., at the spawner's location)
-		FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 50 + GetActorUpVector() * 50; // Offset slightly
-		FRotator SpawnRotation = GetActorRotation();
-
-		// Optional: Define spawn parameters (owner, collision handling, etc.)
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.Owner = this;
-		SpawnParams.Instigator = GetInstigator();
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-		// Spawn the actor
-		// Use the TSubclassOf variable for flexibility
-		if (ActorToSpawnClass)
-		{
-			ABullet* SpawnedActor = World->SpawnActor<ABullet>(
-				ActorToSpawnClass,
-				SpawnLocation,
-				SpawnRotation,
-				SpawnParams
-			);
-
-			// You can now set properties on the spawned actor if needed
-			if (SpawnedActor)
-			{
-				TArray<UStaticMeshComponent*> set;
-				SpawnedActor->GetComponents<UStaticMeshComponent>(set);
-				for (UStaticMeshComponent* mesh : set) 
-				{
-					mesh->AddImpulse(GetActorForwardVector() * 1000 * mesh->GetMass());
-				}
-			}
-		}
+		cannon->Fire();
 	}
+	return;
+	
 }
 
 void ASpace_SorcererCharacter::MoveInput(const FInputActionValue& Value)
@@ -152,6 +159,26 @@ void ASpace_SorcererCharacter::DoMove(float Right, float Forward)
 
 void ASpace_SorcererCharacter::DoJumpStart()
 {
+}
+
+void ASpace_SorcererCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	TArray<UChildActorComponent*> childActors;
+	GetComponents<UChildActorComponent>(childActors);
+
+	for (UChildActorComponent* childActor : childActors)
+	{
+		AActor* SpawnedActor = childActor->GetChildActor();
+		if (SpawnedActor && SpawnedActor->IsA(AModulePosition::StaticClass()))
+		{
+			CannonTransforms.Add(Cast<AModulePosition>(SpawnedActor));
+		}
+	}
+	AddCannon(cannonTemplate, "Above");
+	AddCannon(cannonTemplate, "Left");
+
+
 }
 
 void ASpace_SorcererCharacter::DoJumpEnd()
