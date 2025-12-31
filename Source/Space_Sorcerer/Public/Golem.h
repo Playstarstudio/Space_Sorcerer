@@ -17,11 +17,18 @@ class SPACE_SORCERER_API AGolem : public AEntity, public IGenericTeamAgentInterf
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int hp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int CurrentHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int WeaponRange_R;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int WeaponRange_L;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	int32 PerceptionID = 0;
+
 
 
 	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
