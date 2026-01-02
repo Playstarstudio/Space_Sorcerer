@@ -107,14 +107,17 @@ void ASpace_SorcererCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 void ASpace_SorcererCharacter::ShootInput(const FInputActionValue& value) 
 {
-	int a = 1;
-	a = a + a;
-	for (ACannon* cannon : Cannons) 
+	UE_LOG(LogSpace_Sorcerer, Log, TEXT("'Initaited shoost."));
+	ShootAllCannons();
+}
+
+void ASpace_SorcererCharacter::ShootAllCannons() 
+{
+
+	for (ACannon* cannon : Cannons)
 	{
 		cannon->Fire();
 	}
-	return;
-	
 }
 
 void ASpace_SorcererCharacter::MoveInput(const FInputActionValue& Value)

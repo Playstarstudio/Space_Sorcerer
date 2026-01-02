@@ -90,6 +90,10 @@ protected:
 	/** Called from Input Actions for shooting input(Left click) */
 	void ShootInput(const FInputActionValue& value);
 
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void ShootAllCannons();
+
 	/** Handles aim inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoAim(float Yaw, float Pitch);
