@@ -23,9 +23,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int MaxHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int WeaponRange_R;
+	int WeaponRangeMax_R;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-	int WeaponRange_L;
+	int WeaponRangeMax_L;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int WeaponRangeMin_R;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int WeaponRangeMin_L;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool MeleeWeapon_R;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool MeleeWeapon_L;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool Fire_R;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool Fire_L;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	int32 PerceptionID = 0;
 
