@@ -18,10 +18,20 @@ protected:
 
 	virtual void BeginPlay();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	int PercIdToSet;
+
 	FGenericTeamId PerceptionTeamId;
+
 	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
 public:
+
+	UFUNCTION(BlueprintCallable, DisplayName = "SetTeamID", Category = "AI")
+	void SetTeam(uint8 const& id)
+	{
+		PerceptionTeamId = FGenericTeamId(id);
+	}
 
 	virtual FGenericTeamId GetGenericTeamId() const override 
 	{
