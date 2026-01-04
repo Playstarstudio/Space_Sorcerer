@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Entity.h"
 #include "GenericTeamAgentInterface.h"
+#include "GolemPartRegion.h"
 #include "Golem.generated.h"
 
+class ACannon;
 
 /**
  * 
@@ -44,13 +46,35 @@ public:
 
 
 
+	UFUNCTION(BlueprintCallable, Category = "Partss")
+	void SetRegion(UGolemPartRegion region, bool enabled);
+
+	UFUNCTION(BlueprintCallable, Category = "Parts")
+	void AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
+
+
 	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
 
 protected:
 
+
+	TArray<ACannon*> Cannons;
+
+	//Mapping from normal name(left, right, up, down) to socket name
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BoneMappings")
+	TMap<FString, FString> NameMapping;
+
+
+
+	//Mapping from normal name(left, right, up, down) to socket name
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BoneMappings")
+	TMap<UGolemPartRegion, bool> SectionsEnabled;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	FGenericTeamId PerceptionTeamId;
-
 private:
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 };

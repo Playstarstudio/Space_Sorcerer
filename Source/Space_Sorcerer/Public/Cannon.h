@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GolemPartRegion.h"
 #include "Cannon.generated.h"
 
 UCLASS()
@@ -23,6 +24,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UGolemPartRegion region = UGolemPartRegion::PR_None;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "InitateFire")
 	void Fire();
