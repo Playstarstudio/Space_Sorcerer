@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Entity.h"
+#include "Perception/AISightTargetInterface.h"
 #include "GenericTeamAgentInterface.h"
 #include "GolemPartRegion.h"
 #include "Golem.generated.h"
@@ -44,6 +45,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	int32 PerceptionID = 0;
 
+	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
 
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
@@ -53,7 +55,6 @@ public:
 	void AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
 
 
-	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
@@ -101,6 +102,15 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	FGenericTeamId PerceptionTeamId;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	TArray<FName> ViewTargets;
+	/*
+	UFUNCTION(BlueprintCallable)
+	void NextViewTarget();
+	int32 Index = 0;
+	*/
+
 private:
 
 };

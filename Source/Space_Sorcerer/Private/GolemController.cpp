@@ -6,8 +6,34 @@
 void AGolemController::BeginPlay()
 {
 	Super::BeginPlay();
+	AGolem* Chr = Cast<AGolem>(GetPawn());
+	if (Chr)
+	{
+		Agent = Chr;
+		PerceptionTeamId = FGenericTeamId(Agent->PerceptionID);
+	}
 }
 
+void AGolemController::OnPerception(AActor* Actor, FAIStimulus Stimulus)
+{
+	AGolem* Chr = Cast<AGolem>(Actor);
+	if (Chr==nullptr)
+	{
+		return;
+	}
+	TArray<AActor*> Threats;
+	PerceptionComponent->GetHostileActors(Threats);
+	if(Threats.Num() <=0)
+	{
+		return;
+	}
+	const int32 i = Threats.Find(Actor);
+	if (i < 0)
+
+	{
+		return;
+	}
+}
 
 ETeamAttitude::Type AGolemController::GetTeamAttitudeTowards(const AActor& other) const
 {
@@ -15,7 +41,6 @@ ETeamAttitude::Type AGolemController::GetTeamAttitudeTowards(const AActor& other
 	if (OtherPawn == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("I BROKE11!"));
-
 		return ETeamAttitude::Neutral;
 	}
 

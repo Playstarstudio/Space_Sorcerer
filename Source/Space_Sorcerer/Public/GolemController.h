@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Golem.h"
 #include "GolemController.generated.h"
 
 /**
@@ -27,14 +29,14 @@ protected:
 
 public:
 
-	UFUNCTION(BlueprintCallable, DisplayName = "SetTeamID", Category = "AI")
-	void SetTeam(uint8 const& id)
-	{
-		PerceptionTeamId = FGenericTeamId(id);
-	}
+	UPROPERTY(BlueprintReadWrite)
+	class AGolem* Agent;
 
 	virtual FGenericTeamId GetGenericTeamId() const override 
 	{
 		return PerceptionTeamId;
 	}
+
+	UFUNCTION()
+	void OnPerception(AActor* Actor, FAIStimulus Stimulus)
 };
