@@ -46,7 +46,7 @@ public:
 
 
 
-	UFUNCTION(BlueprintCallable, Category = "Partss")
+	UFUNCTION(BlueprintCallable, Category = "Parts")
 	void SetRegion(UGolemPartRegion region, bool enabled);
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
@@ -75,7 +75,7 @@ public:
 	void SetTarget(AGolem* newTarget);
 protected:
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parts")
 	TArray<ACannon*> Cannons;
 
 	//Mapping from normal name(left, right, up, down) to socket name

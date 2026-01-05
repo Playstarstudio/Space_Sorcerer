@@ -26,6 +26,13 @@ public:
 
 	UGolemPartRegion region = UGolemPartRegion::PR_None;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float Cooldown;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float MinRange;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float MaxRange;
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "InitateFire")
 	void Fire();
 };
