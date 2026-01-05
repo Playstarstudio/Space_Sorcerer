@@ -35,6 +35,18 @@ void AGolem::AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPart
 	
 }
 
+void AGolem::ResetTarget()
+{
+	targetGolem = NULL;
+	distanceToTarget = -1.0;
+}
+
+void AGolem::SetTarget(AGolem* newTarget)
+{
+	targetGolem = newTarget;
+	distanceToTarget = FVector::Distance(newTarget->GetActorLocation(), GetActorLocation());
+}
+
 void AGolem::Tick(float DeltaTime)
 {
 	for (ACannon* cannon : Cannons)

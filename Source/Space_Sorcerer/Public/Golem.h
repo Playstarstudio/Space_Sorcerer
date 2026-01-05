@@ -55,6 +55,24 @@ public:
 
 	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	float distanceToTarget = -1;
+
+
+	//NOTE: COULD BE NULL WHEN NO TARGET IS AVAILABLE
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	AGolem* targetGolem;
+
+
+
+	//Resets the target Golem and its distance;
+
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	void ResetTarget();
+
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	void SetTarget(AGolem* newTarget);
 protected:
 
 
