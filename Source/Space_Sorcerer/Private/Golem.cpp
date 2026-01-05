@@ -43,12 +43,23 @@ void AGolem::ResetTarget()
 
 void AGolem::SetTarget(AGolem* newTarget)
 {
+	if (newTarget == nullptr) return;
 	targetGolem = newTarget;
-	distanceToTarget = FVector::Distance(newTarget->GetActorLocation(), GetActorLocation());
+	FVector targetVec = targetGolem->GetActorLocation();
+	FVector golemVec = GetActorLocation();
+	distanceToTarget = FVector::Distance(targetVec, golemVec);
+}
+
+void AGolem::UpdateDistanceToTarget()
+{
+	FVector targetVec = targetGolem->GetActorLocation();
+	FVector golemVec = GetActorLocation();
+	distanceToTarget = FVector::Distance(targetVec, golemVec);
 }
 
 void AGolem::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 	for (ACannon* cannon : Cannons)
 	{
 		if (SectionsEnabled.Contains(cannon->region) && SectionsEnabled.Find(cannon->region)) 

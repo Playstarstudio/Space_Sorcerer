@@ -66,6 +66,11 @@ public:
 
 
 
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+
 	//Resets the target Golem and its distance;
 
 	UFUNCTION(BlueprintCallable, Category = "AI")
@@ -73,6 +78,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "AI")
 	void SetTarget(AGolem* newTarget);
+
+
+	//Updates the distance to target, what did you think this did?
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	virtual void UpdateDistanceToTarget();
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parts")
@@ -93,6 +103,4 @@ protected:
 	FGenericTeamId PerceptionTeamId;
 private:
 
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 };
