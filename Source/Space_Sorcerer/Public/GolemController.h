@@ -38,5 +38,5 @@ public:
 	}
 
 	UFUNCTION()
-	void OnPerception(AActor* Actor, FAIStimulus Stimulus)
+	void OnPerception(AActor* Actor, FAIStimulus Stimulus);
 };
