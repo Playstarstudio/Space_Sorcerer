@@ -55,6 +55,8 @@ public:
 	void AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
 
 
+	UFUNCTION(BlueprintCallable, Category = "Parts")
+	virtual void DestroyGolem();
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")

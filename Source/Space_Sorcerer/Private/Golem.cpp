@@ -35,6 +35,15 @@ void AGolem::AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPart
 	
 }
 
+void AGolem::DestroyGolem()
+{
+	for (ACannon* cannon : Cannons)
+	{
+		cannon->Destroy();
+	}
+	Destroy();
+}
+
 void AGolem::ResetTarget()
 {
 	targetGolem = NULL;
