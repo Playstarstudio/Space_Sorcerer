@@ -35,6 +35,21 @@ void AGolem::AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPart
 	
 }
 
+void AGolem::RemoveCannon(UGolemPartRegion region)
+{
+	for (int cannonIndex = Cannons.Num() - 1; cannonIndex >= 0; cannonIndex--)
+	{
+		ACannon* cannon = Cannons[cannonIndex];
+		if (region == cannon->region)
+		{
+			cannon->Destroy();
+		}
+		Cannons.Remove(cannon);
+	}
+}
+
+
+
 void AGolem::DestroyGolem()
 {
 	for (ACannon* cannon : Cannons)
