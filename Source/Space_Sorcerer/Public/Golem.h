@@ -10,6 +10,8 @@
 #include "Golem.generated.h"
 
 class ACannon;
+class APart;
+
 
 /**
  * 
@@ -52,7 +54,7 @@ public:
 	void SetRegion(UGolemPartRegion region, bool enabled);
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
-	void AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
+	void AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
 	void RemoveCannon(UGolemPartRegion region);
@@ -91,7 +93,7 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parts")
-	TArray<ACannon*> Cannons;
+	TArray<APart*> Parts;
 
 	//Mapping from normal name(left, right, up, down) to socket name
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BoneMappings")

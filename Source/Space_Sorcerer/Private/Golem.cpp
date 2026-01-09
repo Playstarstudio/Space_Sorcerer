@@ -3,7 +3,7 @@
 
 #include "Golem.h"
 #include "Cannon.h"
-
+#include "Part.h"
 
 
 
@@ -14,7 +14,7 @@ void AGolem::SetRegion(UGolemPartRegion region, bool enabled)
 	SectionsEnabled.Add(region, enabled);
 }
 
-void AGolem::AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation)
+void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation)
 {
 	FName actualName = FName(*NameMapping.Find(Position));
 	FTransform socketTransform = GetMesh()->GetSocketTransform(actualName);
@@ -26,25 +26,25 @@ void AGolem::AddCannon(TSubclassOf<ACannon> cannon, FString Position, UGolemPart
 		EAttachmentRule::KeepRelative, 
 		true 
 	);
-	ACannon* cannonObj = GetWorld()->SpawnActor<ACannon>(cannon, socketTransform, SpawnParams);
-	cannonObj->AttachToComponent(GetMesh(), TransformRules, actualName);
-	cannonObj->SetActorScale3D(cannonObj->GetActorScale3D() * scale);
-	cannonObj->SetActorRelativeRotation(rotation);
-	Cannons.Add(cannonObj);
-	cannonObj->region = region;
+	APart* partObj = GetWorld()->SpawnActor<APart>(part, socketTransform, SpawnParams);
+	partObj->AttachToComponent(GetMesh(), TransformRules, actualName);
+	partObj->SetActorScale3D(partObj->GetActorScale3D() * scale);
+	partObj->SetActorRelativeRotation(rotation);
+	Parts.Add(partObj);
+	partObj->region = region;
 	
 }
 
 void AGolem::RemoveCannon(UGolemPartRegion region)
 {
-	for (int cannonIndex = Cannons.Num() - 1; cannonIndex >= 0; cannonIndex--)
+	for (int cannonIndex = Parts.Num() - 1; cannonIndex >= 0; cannonIndex--)
 	{
-		ACannon* cannon = Cannons[cannonIndex];
+		APart* cannon = Parts[cannonIndex];
 		if (region == cannon->region)
 		{
 			cannon->Destroy();
 		}
-		Cannons.Remove(cannon);
+		Parts.Remove(cannon);
 	}
 }
 
@@ -52,7 +52,7 @@ void AGolem::RemoveCannon(UGolemPartRegion region)
 
 void AGolem::DestroyGolem()
 {
-	for (ACannon* cannon : Cannons)
+	for (APart* cannon : Parts)
 	{
 		cannon->Destroy();
 	}
@@ -84,11 +84,11 @@ void AGolem::UpdateDistanceToTarget()
 void AGolem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	for (ACannon* cannon : Cannons)
+	for (APart* cannon : Parts)
 	{
-		if (SectionsEnabled.Contains(cannon->region) && SectionsEnabled.Find(cannon->region)) 
+		if (SectionsEnabled.Contains(cannon->region) && SectionsEnabled.Find(cannon->region) && cannon->IsA(ACannon::StaticClass())) 
 		{
-			cannon->Fire();
+			((ACannon*)cannon)->Fire();
 		}
 	}
 }

@@ -4,11 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Part.h"
 #include "GolemPartRegion.h"
 #include "Cannon.generated.h"
 
+class APart;
+
+/**
+ *
+ */
 UCLASS()
-class SPACE_SORCERER_API ACannon : public AActor
+class SPACE_SORCERER_API ACannon : public APart
 {
 	GENERATED_BODY()
 	
@@ -23,8 +29,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	UGolemPartRegion region = UGolemPartRegion::PR_None;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float Cooldown;
