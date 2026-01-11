@@ -32,7 +32,6 @@ void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegi
 	partObj->SetActorRelativeRotation(rotation);
 	Parts.Add(partObj);
 	partObj->region = region;
-	
 }
 
 void AGolem::RemoveCannon(UGolemPartRegion region)
