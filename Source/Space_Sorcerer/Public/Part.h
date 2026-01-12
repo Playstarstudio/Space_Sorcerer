@@ -8,7 +8,6 @@
 #include "GolemPartRegion.h"
 #include "Part.generated.h"
 
-class UWeaponsValues;
 
 
 UCLASS()

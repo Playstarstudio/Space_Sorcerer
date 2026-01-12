@@ -16,6 +16,18 @@ void AGolem::SetRegion(UGolemPartRegion region, bool enabled)
 
 void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation)
 {
+	if (PartAtLocation(region) != NULL) 
+	{
+		for (int cannonIndex = Parts.Num() - 1; cannonIndex >= 0; cannonIndex--)
+		{
+			APart* instantiatedPart = Parts[cannonIndex];
+			if (instantiatedPart->region == region)
+			{
+				instantiatedPart->Destroy();
+				Parts.Remove(instantiatedPart);
+			}
+		}
+	}
 	FName actualName = FName(*NameMapping.Find(Position));
 	FTransform socketTransform = GetMesh()->GetSocketTransform(actualName);
 	FActorSpawnParameters SpawnParams;
@@ -43,8 +55,8 @@ void AGolem::RemoveCannon(UGolemPartRegion region)
 		if (region == cannon->region)
 		{
 			cannon->Destroy();
+			Parts.Remove(cannon);
 		}
-		Parts.Remove(cannon);
 	}
 }
 

@@ -2,7 +2,6 @@
 
 
 #include "Part.h"
-#include "WeaponsValues.h"
 
 // Sets default values
 APart::APart()
