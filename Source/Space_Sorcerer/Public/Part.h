@@ -39,4 +39,11 @@ public:
 	float MinRange;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float MaxRange;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	bool isRanged;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	UGolemPartRegion regionAcceptablePlace;
+
 };

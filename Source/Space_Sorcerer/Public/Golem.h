@@ -51,10 +51,16 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
-	void SetRegion(UGolemPartRegion region, bool enabled);
+	bool CanPlaceInRegion(TSubclassOf<APart> part, UGolemPartRegion region);
+
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
-	void AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation);
+	void SetRegion(UGolemPartRegion region, bool enabled);
+
+
+	//NOTE:Returns nullptr if the part cannot be placed in the given region
+	UFUNCTION(BlueprintCallable, Category = "Parts")
+	APart* AddCannon(TSubclassOf<APart> part, UGolemPartRegion region, FVector scale, FRotator rotation);
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
 	void RemoveCannon(UGolemPartRegion region);

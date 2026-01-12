@@ -9,13 +9,42 @@
 
 
 
+bool AGolem::CanPlaceInRegion(TSubclassOf<APart> part, UGolemPartRegion region)
+{
+	UGolemPartRegion partRegion = part.GetDefaultObject()->regionAcceptablePlace;
+	if (partRegion == UGolemPartRegion::PR_Both_Hands && (region == UGolemPartRegion::PR_Left || region == UGolemPartRegion::PR_Right)) 
+	{
+		return true;
+	}
+	return partRegion == region;
+}
+
 void AGolem::SetRegion(UGolemPartRegion region, bool enabled)
 {
 	SectionsEnabled.Add(region, enabled);
 }
 
-void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegion region, FVector scale, FRotator rotation)
+APart* AGolem::AddCannon(TSubclassOf<APart> part, UGolemPartRegion region, FVector scale, FRotator rotation)
 {
+	if (!CanPlaceInRegion(part, region))
+	{
+		return nullptr;
+	}
+	FString Position = "None";
+	if (region == UGolemPartRegion::PR_Left) 
+	{
+		Position = "Left";
+	}
+	else if (region == UGolemPartRegion::PR_Right) 
+	{
+		Position = "Right";
+	}
+	else if (region == UGolemPartRegion::PR_Both_Hands) 
+	{
+		region = UGolemPartRegion::PR_Right;
+		Position = "Right";
+		this->AddCannon(part, UGolemPartRegion::PR_Left, scale, rotation);
+	}
 	if (PartAtLocation(region) != NULL) 
 	{
 		for (int cannonIndex = Parts.Num() - 1; cannonIndex >= 0; cannonIndex--)
@@ -45,6 +74,7 @@ void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegi
 	partObj->associatedGolem = this;
 	Parts.Add(partObj);
 	partObj->region = region;
+	return partObj;
 }
 
 void AGolem::RemoveCannon(UGolemPartRegion region)

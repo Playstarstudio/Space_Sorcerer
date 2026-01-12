@@ -12,5 +12,7 @@ enum class UGolemPartRegion : uint8
     PR_None         UMETA(DisplayName = "None"),
     PR_Left         UMETA(DisplayName = "Left side"),
     PR_Right        UMETA(DisplayName = "Right side"),
+    PR_Both_Hands  UMETA(DisplayName = "Both hands"),
+    PR_Head        UMETA(DisplayName = "Head"),
     PR_MAX         UMETA(Hidden)
 };
