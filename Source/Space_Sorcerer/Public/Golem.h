@@ -73,7 +73,6 @@ public:
 
 
 
-
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -86,6 +85,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "AI")
 	void SetTarget(AGolem* newTarget);
 
+
+	//Finds the part at a given region. NOTE: If there is no part there, it will return a null ptr.
+	UFUNCTION(BlueprintCallable, Category = "Parts")
+	APart* PartAtLocation(UGolemPartRegion region);
 
 	//Updates the distance to target, what did you think this did?
 	UFUNCTION(BlueprintCallable, Category = "AI")

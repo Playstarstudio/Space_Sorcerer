@@ -30,6 +30,7 @@ void AGolem::AddCannon(TSubclassOf<APart> part, FString Position, UGolemPartRegi
 	partObj->AttachToComponent(GetMesh(), TransformRules, actualName);
 	partObj->SetActorScale3D(partObj->GetActorScale3D() * scale);
 	partObj->SetActorRelativeRotation(rotation);
+	partObj->associatedGolem = this;
 	Parts.Add(partObj);
 	partObj->region = region;
 }
@@ -71,6 +72,19 @@ void AGolem::SetTarget(AGolem* newTarget)
 	FVector targetVec = targetGolem->GetActorLocation();
 	FVector golemVec = GetActorLocation();
 	distanceToTarget = FVector::Distance(targetVec, golemVec);
+}
+
+APart* AGolem::PartAtLocation(UGolemPartRegion region)
+{
+	for (APart* part : Parts) 
+	{
+		if (part && part->region == region) 
+		{
+			return part;
+		}
+	}
+
+	return nullptr;
 }
 
 void AGolem::UpdateDistanceToTarget()

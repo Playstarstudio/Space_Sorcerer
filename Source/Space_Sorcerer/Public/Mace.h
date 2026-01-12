@@ -3,24 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "Part.h"
-#include "GolemPartRegion.h"
-#include "Cannon.generated.h"
+#include "GameFramework/Actor.h"
+#include "Mace.generated.h"
 
 class APart;
 
-/**
- *
- */
+
 UCLASS()
-class SPACE_SORCERER_API ACannon : public APart
+class SPACE_SORCERER_API AMace : public APart
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACannon();
+	AMace();
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,6 +27,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "InitateFire")
-	void Fire();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float DamangeOnImpact;
 };

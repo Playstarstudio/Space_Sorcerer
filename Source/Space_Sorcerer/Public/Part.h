@@ -4,8 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Golem.h"
 #include "GolemPartRegion.h"
 #include "Part.generated.h"
+
+class UWeaponsValues;
+
 
 UCLASS()
 class SPACE_SORCERER_API APart : public AActor
@@ -25,5 +29,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	//NOTE: Set when cannon is added
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	AGolem* associatedGolem;
 
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float Cooldown;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float MinRange;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float MaxRange;
 };
