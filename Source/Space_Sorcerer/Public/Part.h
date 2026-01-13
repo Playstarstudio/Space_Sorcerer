@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Golem.h"
+#include "Math/UnrealMathUtility.h"
 #include "GolemPartRegion.h"
 #include "Part.generated.h"
 
@@ -36,6 +37,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float Cooldown;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float CurrentCooldown;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float MinRange;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
