@@ -19,6 +19,7 @@ public:
 	// Sets default values for this actor's properties
 	APart();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	UGolemPartRegion region = UGolemPartRegion::PR_None;
 
 protected:
