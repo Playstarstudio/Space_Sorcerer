@@ -30,7 +30,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	//NOTE: Set when cannon is added
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
-	AGolem* associatedGolem;
+	TObjectPtr <AGolem> associatedGolem;
 
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
