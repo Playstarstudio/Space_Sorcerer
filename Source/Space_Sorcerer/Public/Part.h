@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Golem.h"
+#include "EWeaponAnimSelector.h"
 #include "Math/UnrealMathUtility.h"
 #include "GolemPartRegion.h"
 #include "Part.generated.h"
@@ -49,5 +50,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	UGolemPartRegion regionAcceptablePlace;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	EWeaponAnimSelector WeaponAnimSelector;
 
 };
