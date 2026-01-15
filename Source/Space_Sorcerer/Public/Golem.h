@@ -51,6 +51,10 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = "Parts")
+	uint8 GenericTeamIDInt() const { return PerceptionTeamId.GetId(); }
+
+
+	UFUNCTION(BlueprintCallable, Category = "Parts")
 	bool CanPlaceInRegion(TSubclassOf<APart> part, UGolemPartRegion region);
 
 

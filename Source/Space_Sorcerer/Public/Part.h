@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Golem.h"
+#include "EWeaponAnimSelector.h"
+#include "Math/UnrealMathUtility.h"
 #include "GolemPartRegion.h"
 #include "Part.generated.h"
 
@@ -19,6 +21,7 @@ public:
 	// Sets default values for this actor's properties
 	APart();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	UGolemPartRegion region = UGolemPartRegion::PR_None;
 
 protected:
@@ -30,11 +33,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	//NOTE: Set when cannon is added
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
-	AGolem* associatedGolem;
+	TObjectPtr <AGolem> associatedGolem;
 
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float Cooldown;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	float CurrentCooldown;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float MinRange;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
@@ -45,5 +50,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	UGolemPartRegion regionAcceptablePlace;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	EWeaponAnimSelector WeaponAnimSelector;
 
 };

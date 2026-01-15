@@ -15,13 +15,14 @@ APart::APart()
 void APart::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	CurrentCooldown = Cooldown;
 }
 
 // Called every frame
 void APart::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	CurrentCooldown -= DeltaTime;
+	FMath::Clamp(CurrentCooldown, -1, FLT_MAX);
 }
 
