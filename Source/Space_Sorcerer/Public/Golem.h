@@ -48,6 +48,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int TeamTracker;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	bool InShop;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	int32 PerceptionID = 0;
 
 	virtual FGenericTeamId GetGenericTeamId() const override { return PerceptionTeamId; }
