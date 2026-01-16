@@ -26,3 +26,8 @@ void APart::Tick(float DeltaTime)
 	FMath::Clamp(CurrentCooldown, -1, FLT_MAX);
 }
 
+void APart::UsePart(AActor* target)
+{
+	UsePartImpl(target);
+}
+

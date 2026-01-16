@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Entity.h"
 #include "Part.h"
 #include "Lazer.generated.h"
 

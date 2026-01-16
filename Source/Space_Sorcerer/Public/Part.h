@@ -31,6 +31,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+
+	UFUNCTION(BlueprintCallable, Category = "Fire")
+	void UsePart(AActor* target);
+
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Fire")
+	void UsePartImpl(AActor* target); 
+
 	//NOTE: Set when cannon is added
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	TObjectPtr <AGolem> associatedGolem;
