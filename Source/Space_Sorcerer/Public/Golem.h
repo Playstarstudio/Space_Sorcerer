@@ -43,6 +43,8 @@ public:
 	bool Fire_R;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	bool Fire_L;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool PlayerGolem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	int32 PerceptionID = 0;
