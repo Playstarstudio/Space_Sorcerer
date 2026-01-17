@@ -57,6 +57,15 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	bool isRanged;
 
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	FVector partScaling;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	FRotator partRotation;
+
+
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	UGolemPartRegion regionAcceptablePlace;
 
