@@ -19,6 +19,7 @@ public:
 	// Sets default values for this actor's properties
 	AMace();
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -29,4 +30,11 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
 	float DamangeOnImpact;
+
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	bool CanAttack;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PartData")
+	bool HasAttacked;
 };
