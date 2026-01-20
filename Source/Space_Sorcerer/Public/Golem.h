@@ -24,6 +24,9 @@ class SPACE_SORCERER_API AGolem : public AEntity, public IGenericTeamAgentInterf
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	bool preferRanged;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int CurrentHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int MaxHealth;
