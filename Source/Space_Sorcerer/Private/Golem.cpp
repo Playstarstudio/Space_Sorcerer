@@ -39,6 +39,10 @@ APart* AGolem::AddCannon(TSubclassOf<APart> part, UGolemPartRegion region, FVect
 	{
 		Position = "Right";
 	}
+	else if (region == UGolemPartRegion::PR_Head)
+	{
+		Position = "Head";
+	}
 	else if (region == UGolemPartRegion::PR_Both_Hands) 
 	{
 		region = UGolemPartRegion::PR_Right;
